@@ -1,0 +1,155 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --cell-size: 8rem;
+  --mark-size: calc(var(--cell-size) * 0.9);
+}
+
+body {
+  background-color: #1d3557;
+  overflow: hidden;
+  font-family: "VT323", monospace;
+}
+
+.board {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background-color: #1d3557;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  cursor: pointer;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+
+.cell:last-child,
+.cell:nth-child(7),
+.cell:nth-child(8) {
+  border-bottom: none;
+}
+
+.cell.x,
+.cell.circ {
+  cursor: not-allowed;
+}
+
+.cell.x::before,
+.cell.x::after,
+.cell.circ::before {
+  background-color: #f1faee;
+}
+
+.board.x .cell:not(.x):not(.circ):hover::before,
+.board.x .cell:not(.x):not(.circ):hover::after,
+.board.circ .cell:not(.x):not(.circ):hover::before {
+  background-color: #457b9d;
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.circ):hover::before,
+.board.x .cell:not(.x):not(.circ):hover::after {
+  content: "";
+  position: absolute;
+  width: calc(var(--mark-size) * 0.15);
+  height: var(--mark-size);
+}
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.circ)::before {
+  transform: rotate(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:not(.x):not(.circ)::after {
+  transform: rotate(-45deg);
+}
+
+.cell.circ::before,
+.cell.circ::after,
+.board.circ .cell:not(.x):not(.circ):hover::before,
+.board.circ .cell:not(.x):not(.circ):hover::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.cell.circ::before,
+.board.circ .cell:not(.x):not(.circ):hover::before {
+  width: var(--mark-size);
+  height: var(--mark-size);
+}
+
+.cell.circ::after,
+.board.circ .cell:not(.x):not(.circ):hover::after {
+  width: calc(var(--mark-size) * 0.7);
+  height: calc(var(--mark-size) * 0.7);
+  background-color: #1d3557;
+}
+
+.winning-message {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  color: #f1faee;
+  font-size: 6rem;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.winning-message button {
+  font-family: inherit;
+  font-size: 2.2rem;
+  background-color: #f1faee;
+  border: 1px solid #1d3557;
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+
+.winning-message button:hover {
+  background-color: #1d3557;
+  border-color: #f1faee;
+  color: #f1faee;
+}
+
+.winning-message.show {
+  display: flex;
+}
