@@ -153,3 +153,7 @@ body {
 .winning-message.show {
   display: flex;
 }
+
+.data-win-text {
+  text-align: center;
+}
